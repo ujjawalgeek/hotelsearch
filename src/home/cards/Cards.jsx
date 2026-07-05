@@ -1,4 +1,8 @@
+import { useNavigate } from 'react-router-dom';
+
 const Cards = ({ hotels }) => {
+  const navigate = useNavigate();
+
   if (!hotels || hotels.length === 0) {
     return (
       <div className="flex h-full min-h-80 w-full items-center justify-center p-6">
@@ -47,7 +51,10 @@ const Cards = ({ hotels }) => {
                 ₹{Number(hotel.price).toLocaleString()}
               </h3>
 
-              <button className="rounded-lg bg-sky-600 px-4 py-2 font-medium text-white transition duration-200 hover:bg-sky-700 active:scale-95" onClick=''>
+              <button
+                className="rounded-lg bg-sky-600 px-4 py-2 font-medium text-white transition duration-200 hover:bg-sky-700 active:scale-95"
+                onClick={() => navigate(`/hotel/${hotel.id}`)}
+              >
                 View
               </button>
             </div>
