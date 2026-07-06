@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { Suspense, lazy, useEffect, useState } from "react";
 import Sidebar from "./sidebar/sidebar";
-import Cards from "./cards/Cards";
 import { getAllHotels } from "./hotelApi/hotelApi";
+
+const Cards = lazy(() => import("./cards/Cards"));
 
 const Home = () => {
   const [allHotels, setAllHotels] = useState([]);
@@ -100,7 +101,17 @@ const Home = () => {
       </div>
 
       <div className="w-3/4 overflow-y-auto">
-        <Cards hotels={filteredHotels} />
+        <Suspense
+          fallback={
+            <div className="flex h-full min-h-80 w-full items-center justify-center p-6">
+              <h2 className="text-xl font-semibold text-slate-500">
+                Loading Hotels...
+              </h2>
+            </div>
+          }
+        >
+          <Cards hotels={filteredHotels} />
+        </Suspense>
       </div>
     </div>
   );
